@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="64" height="64">
+  <defs>
+    <linearGradient id="a">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="1" stop-color="#00f" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient xlink:href="#a" id="b" x1="24.418171" x2="22.543497" y1="-6.6913099" y2="34.778072" gradientTransform="matrix(1.0001 -.00383 .05727 .99674 0 -1e-8)" gradientUnits="userSpaceOnUse"/>
+  </defs>
+  <rect width="50.153015" height="32.200886" x="-.53907204" y="18.477829" fill="url(#b)" fill-rule="evenodd" stroke="#483d8b" stroke-dashoffset="1.11199999" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="0" stroke-width="1.50030135" rx="0" ry="12.474283" transform="matrix(.9729 -.23123 .25871 .96596 0 0)"/>
+  <path fill="none" stroke="#483d8b" stroke-width=".80000001" d="m4.1818186 18.545455 29.6363634 8.909091L52 6.7272728"/>
+  <rect width="48.783066" height="31.100908" x=".46708024" y="19.196827" fill="#e6e6fa" fill-rule="evenodd" stroke="#4169e1" stroke-dashoffset="1.11199999" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="0" stroke-width="1.50011396" opacity=".21632655" rx="0" ry="12.454568" transform="matrix(.97227 -.23386 .25076 .96805 0 0)"/>
+  <path fill="none" stroke="#4169e1" stroke-width=".80000001" d="m6.111624 19.302707 28.198596 8.200508L51.274018 7.7682799" opacity=".21632655"/>
+  <path fill="#fff" d="m5.3636364 19.090909 7.8181816 29.181818L15 47.636364 7.2727273 19.818182l-1.9090909-.727273z" color="#000" opacity=".7755102" overflow="visible" style="marker:none"/>
+  <path fill="#fff" d="M5.4545455 18.454545 33.636364 27 50.818182 7.5454545l-2.454546.6363637-15 16.7272728-25.4545451-7.090909-2.4545454.636363z" color="#000" opacity=".65489794" overflow="visible" style="marker:none"/>
+</svg>

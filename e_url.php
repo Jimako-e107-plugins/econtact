@@ -1,40 +1,41 @@
 <?php
 /*
- * e107 Bootstrap CMS
+ * e107 website system
  *
- * Copyright (C) 2008-2015 e107 Inc (e107.org)
+ * Copyright (C) 2008-2025 e107 Inc (e107.org)
  * Released under the terms and conditions of the
  * GNU General Public License (http://www.gnu.org/licenses/gpl.txt)
- * 
- * IMPORTANT: Make sure the redirect script uses the following code to load class2.php: 
- * 
- * 	if (!defined('e107_INIT'))
- * 	{
- * 		require_once(__DIR__.'/../../class2.php');
- * 	}
- * 
+ *
+ * #######################################
+ * #     e107 contact plugin             #
+ * #     by Jimako                       #
+ * #     https://www.e107sk.com          #
+ * #######################################
  */
- 
-if (!defined('e107_INIT')) { exit; }
 
-// v2.x Standard  - Simple mod-rewrite module. 
+if (!defined('e107_INIT'))
+{
+	exit;
+}
+
+// v2.x Standard - Simple mod-rewrite module
 
 class contact_url // plugin-folder + '_url'
 {
-	function config() 
+	/**
+	 * URL configuration for the contact plugin
+	 * @return array URL rewrite configuration
+	 */
+	public function config()
 	{
-		$config = array();
-
-		$config['index'] = array(
-			'alias'         => 'contact',
-			'regex'			=> '^{alias}\/?$',
-			'sef'			=> '{alias}',
-			'redirect'		=> '{e_PLUGIN}contact/contact.php',
-		);
-
-		return $config;
+		// URL configuration for the 'index' route
+		return [
+			'index' => [
+				'alias'     => 'contact/', // URL alias
+				'regex'     => '^{alias}/?$', // Regex for URL matching
+				'sef'       => '{alias}', // SEF (Search Engine Friendly) URL
+				'redirect'  => '{e_PLUGIN}contact/contact.php', // Redirection target
+			],
+		];
 	}
-	
-
-	
 }

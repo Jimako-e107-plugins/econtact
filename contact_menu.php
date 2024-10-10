@@ -1,39 +1,49 @@
 <?php
 
-if (!defined('e107_INIT')) { exit; }
+if (!defined('e107_INIT'))
+{
+	exit;
+}
 
-e107::lan('core','contact');
+// Load language file for the contact plugin
+e107::lan('contact', 'lan_contact');
 
-$head = '<form id="contact-menu" action="'.e_HTTP.'contact.php" method="post" >';
+// Load parameters from Menu Manager
 
+// Assign caption and subtitle, using the current language if available, or fallback to default
+$caption = $parm['caption'][e_LANGUAGE] ?? $parm['caption'] ?? null;
+$subtitle = $parm['subtitle'][e_LANGUAGE] ?? $parm['subtitle'] ?? null;
 
-//XXX Template must conform to Bootstrap specs: http://twitter.github.com/bootstrap/base-css.html#forms
-//TODO Security Image. 
+// Assign template key, with 'default' as a fallback
+$template_key = $parm['template'] ?? 'default';
 
+// Prepare contact form URL and form elements
+$contact_url = e107::url('contact', 'index');
+$form = e107::getForm();
+$head = $form->open('contact-menu', 'POST', $contact_url);
+$foot = $form->close();
 
-$foot = '</form>';
+// Get the appropriate template and shortcodes
+$template = e107::getTemplate('contact', 'contact_menu', $template_key);
+$contact_shortcodes = e107::getScBatch('form', 'contact', false);
+$contact_shortcodes->wrapper('contact_menu/menu');
 
-$range = range(00,24);
-		$tp = e107::getParser();
-		$defs = array();
+// Parse the template
+$text = e107::getParser()->parseTemplate($head . $template['form'] . $foot, true, $contact_shortcodes);
 
-		foreach($range as $val)
-		{
-			$inc = $tp->leadingZeros($val,2);
-			$legacy = 'LAN_CONTACT_'.$inc;
-		//	$defs[$legacy] = 'LANCONTACT_'.$inc;
-			$defs['LANCONTACT_'.$inc] = 'LAN_CONTACT_'.$inc;
-		}
+// Handle tablestyle with fallback
+$default_tablestyle = $template['tablestyle'] ?? 'contact-menu';
+$tablestyle = $parm['tablestyle'] ?? $default_tablestyle;
 
-		e107::getLanguage()->bcDefs($defs);
+// Handle caption rendering if template caption is provided
+if (isset($template['caption']) && $caption)
+{
+	$var = [
+		'MENU_TITLE'    => $caption,
+		'MENU_SUBTITLE' => $subtitle,
+	];
+	$caption = e107::getParser()->simpleParse($template['caption'], $var);
+}
 
-
-$template = e107::getCoreTemplate('contact','menu');
-$contact_shortcodes = e107::getScBatch('contact');         
-$contact_shortcodes->wrapper('contact/menu');  
-$text = e107::getParser()->parseTemplate($head. $template . $foot, true, $contact_shortcodes);
-
-
-e107::getRender()->tablerender(defset('LAN_CONTACT_00', 'Contact Us'), $text, 'contact-menu');
-
-
+// Render the menu using e107's tablerender method
+e107::getRender()->tablerender($caption, $text, $tablestyle);

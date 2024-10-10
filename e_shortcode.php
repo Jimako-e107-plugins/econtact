@@ -2,13 +2,12 @@
 /*
  * e107 website system
  *
- * Copyright (C) 2008-2017 e107 Inc (e107.org)
+ * Copyright (C) 2008-2025 e107 Inc (e107.org)
  * Released under the terms and conditions of the
  * GNU General Public License (http://www.gnu.org/licenses/gpl.txt)
  *
- *
  * #######################################
- * #     e107 contact plugin    		 #
+ * #     e107 contact plugin             #
  * #     by Jimako                       #
  * #     https://www.e107sk.com          #
  * #######################################
@@ -16,28 +15,42 @@
 
 if (!defined('e107_INIT'))
 {
-	exit;
+    exit;
 }
 
-class contact_shortcodes  extends e_shortcode
+class contact_shortcodes extends e_shortcode
 {
-    function sc_contact_info($parm = null)
+    /**
+     * Shortcode to display contact information based on the type passed in $parm.
+     * @param array|null $parm Parameters that specify which type of contact info to display.
+     * @return string|null Parsed HTML output or obfuscated email/phone.
+     */
+    public function sc_contact_info($parm = null)
     {
-        $ipref = e107::getPref('contact_info');
-        $type = varset($parm['type']);
+        // Fetch contact information from preferences
+        $contactInfo = e107::getPref('contact_info');
 
-        if (empty($type) || empty($ipref[$type]))
+        // Get the 'type' parameter from $parm
+        $type = $parm['type'] ?? null;
+
+        // If no type is specified or the contact info for that type is not set, return null
+        if (empty($type) || empty($contactInfo[$type]))
         {
             return null;
         }
 
+        // Get the parser object for HTML rendering and obfuscation
         $tp = e107::getParser();
+
+        // Variable to hold the return value
         $ret = '';
 
+        // Handle different types of contact information
         switch ($type)
         {
             case "organization":
-                $ret = $tp->toHTML($ipref[$type], true, 'TITLE');
+                // Render the organization name as a title
+                $ret = $tp->toHTML($contactInfo[$type], true, 'TITLE');
                 break;
 
             case 'email1':
@@ -46,15 +59,16 @@ class contact_shortcodes  extends e_shortcode
             case 'phone2':
             case 'phone3':
             case 'fax':
-                $ret = $tp->obfuscate($ipref[$type]);
+                // Obfuscate the contact information (email or phone numbers)
+                $ret = $tp->obfuscate($contactInfo[$type]);
                 break;
 
             default:
-                $ret = $tp->toHTML($ipref[$type], true, 'BODY');
-                // code to be executed if n is different from all labels;
+                // Render other contact information as a body element
+                $ret = $tp->toHTML($contactInfo[$type], true, 'BODY');
+                break;
         }
 
         return $ret;
     }
-
 }
