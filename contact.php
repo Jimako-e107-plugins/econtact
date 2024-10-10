@@ -10,7 +10,10 @@
  *
 */
 
-require_once(__DIR__."/class2.php");
+if (!defined('e107_INIT'))
+{
+	require_once(__DIR__ . '/../../class2.php');
+}
 
 
 class contact_front
@@ -69,7 +72,7 @@ class contact_front
 			$this->renderSignupRequired();
 		}
 
-		if(!$LAYOUT = e107::getCoreTemplate('contact', 'layout'))
+		if(!$LAYOUT = e107::getTemplate('contact','contact','layout'))
 		{
 			$LAYOUT = '{---CONTACT-INFO---} {---CONTACT-FORM---}  ';
 		}
@@ -81,7 +84,8 @@ class contact_front
 			$LAYOUT
 		);
 
-		echo e107::getParser()->parseTemplate($LAYOUT, true, e107::getScBatch('contact'));
+	    echo e107::getParser()->parseTemplate($LAYOUT, true, e107::getScBatch('contact', true));
+
 	}
 
 	/**
@@ -209,7 +213,7 @@ class contact_front
 
 			// ----------------------
 
-			$CONTACT_EMAIL = e107::getCoreTemplate('contact', 'email');
+			$CONTACT_EMAIL = e107::getTemplate('contact','contact', 'email');
 
 			unset($_POST['contact_person'], $_POST['author_name'], $_POST['email_send'], $_POST['subject'], $_POST['body'], $_POST['rand_num'], $_POST['code_verify'], $_POST['send-contactus']);
 
@@ -279,13 +283,13 @@ class contact_front
 	private function renderContactInfo()
 	{
 
-		$contact_shortcodes = e107::getScBatch('contact');
+		$contact_shortcodes = e107::getScBatch('contact', true);
 
 		$CONTACT_INFO = varset($GLOBALS['CONTACT_INFO']);
 
 		if(empty($CONTACT_INFO))
 		{
-			$CONTACT_INFO = e107::getCoreTemplate('contact', 'info');
+			$CONTACT_INFO = e107::getTemplate('contact','contact', 'info');
 		}
 
 		$contact_shortcodes->wrapper('contact/info');
@@ -302,10 +306,10 @@ class contact_front
 
 		if(empty($CONTACT_FORM))
 		{
-			$CONTACT_FORM = e107::getCoreTemplate('contact', 'form'); // require_once(e_THEME."templates/contact_template.php");
+			$CONTACT_FORM = e107::getTemplate('contact','contact', 'form'); // require_once(e_THEME."templates/contact_template.php");
 		}
-
-		$contact_shortcodes = e107::getScBatch('contact');
+ 
+		$contact_shortcodes = e107::getScBatch('form', 'contact', false);
 		$contact_shortcodes->wrapper('contact/form');
 
 		$text = e107::getParser()->parseTemplate($CONTACT_FORM, true, $contact_shortcodes);
@@ -330,7 +334,7 @@ class contact_front
 }
 
 
-e107::lan('core','contact');
+e107::lan('contact', 'lan_contact');  // Loads e_PLUGIN.'contact/languages/'.e_LANGUAGE.'/lan_contact.php'
 e107::title(LAN_CONTACT_00);
 e107::canonical('contact');
 e107::route('contact/index');  
@@ -340,4 +344,3 @@ require_once(HEADERF);
 new contact_front;
 
 require_once(FOOTERF);
-

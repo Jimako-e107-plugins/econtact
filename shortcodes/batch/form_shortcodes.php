@@ -16,9 +16,9 @@
 
 if (!defined('e107_INIT')) { exit; }
 
-e107::coreLan('contact');
+//e107::coreLan('contact');
 
-class contact_shortcodes extends e_shortcode
+class plugin_contact_form_shortcodes extends e_shortcode
 {
 	
 	
@@ -134,41 +134,7 @@ class contact_shortcodes extends e_shortcode
 
 	}
 
-	function sc_contact_info($parm=null)
-	{
-		$ipref = e107::getPref('contact_info');
-		$type = varset($parm['type']);
 
-		if(empty($type) || empty($ipref[$type]))
-		{
-			return null;
-		}
-
-		$tp = e107::getParser();
-		$ret = '';
-
-		switch($type)
-		{
-			case "organization":
-				$ret = $tp->toHTML($ipref[$type], true, 'TITLE');
-				break;
-
-			case 'email1':
-			case 'email2':
-			case 'phone1':
-			case 'phone2':
-			case 'phone3':
-			case 'fax':
-				$ret = $tp->obfuscate($ipref[$type]);
-				break;
-
-			default:
-				$ret = $tp->toHTML($ipref[$type], true, 'BODY');
-				// code to be executed if n is different from all labels;
-		}
-
-		return $ret;
-	}
 
 
 
@@ -259,5 +225,3 @@ class contact_shortcodes extends e_shortcode
 
 
 }
-
-

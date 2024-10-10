@@ -29,7 +29,7 @@ class contact_url // plugin-folder + '_url'
 			'alias'         => 'contact',
 			'regex'			=> '^{alias}\/?$',
 			'sef'			=> '{alias}',
-			'redirect'		=> '{e_BASE}contact.php',
+			'redirect'		=> '{e_PLUGIN}contact/contact.php',
 		);
 
 		return $config;
