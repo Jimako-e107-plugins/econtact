@@ -28,14 +28,23 @@ class contact_url // plugin-folder + '_url'
 	 */
 	public function config()
 	{
+
 		// URL configuration for the 'index' route
-		return [
-			'index' => [
+		$config['report'] = [
+				'alias'     => 'report/', // URL alias
+				'regex'     => '^{alias}\/?([\?].*)?\/?$',  // Regex for URL matching
+				'sef'       => '{alias}', // SEF (Search Engine Friendly) URL
+				'redirect'  => '{e_PLUGIN}contact/report.php$1', // Redirection target
+			];
+
+		// URL configuration for the 'index' route
+		$config['index'] = [
 				'alias'     => 'contact/', // URL alias
 				'regex'     => '^{alias}/?$', // Regex for URL matching
 				'sef'       => '{alias}', // SEF (Search Engine Friendly) URL
 				'redirect'  => '{e_PLUGIN}contact/contact.php', // Redirection target
-			],
-		];
+		]; 
+
+		return $config;
 	}
 }

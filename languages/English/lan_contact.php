@@ -42,4 +42,9 @@ define("LAN_CONTACT_22", "Privacy policy");
 define("LAN_CONTACT_23", "You can find our privacy policy here: [x]");
 define("LAN_CONTACT_24", "GDPR Agreement");
 
-
+define("LAN_REPORT", "Report");
+define("LAN_MISSING", "Missing Information");
+define("LAN_RULESVIOLATION", "Violation of Rules");
+define("LAN_BUGREPORT", "Bug Report");
+define("LAN_REPORTTHIS", "Report This");
+define("LAN_COMMENTS", "Your comments");

@@ -56,91 +56,50 @@ $CONTACT_TEMPLATE['info'] = "
 ";
 
 
-$CONTACT_TEMPLATE['menu'] =  '
-	<div class="contactMenuForm">
-		<div class="control-group form-group mb-3">
-			<label for="contactName">{LAN=CONTACT_03}</label>
-				{CONTACT_NAME}
-		 </div>
-		 
-		<div class="control-group form-group mb-3">
-			<label class="control-label" for="contactEmail">{LAN=CONTACT_04}</label>
-				{CONTACT_EMAIL}
-		</div>
-		<div class="control-group form-group mb-3">
-			<label for="contactBody" >{LAN=CONTACT_06}</label>
-				{CONTACT_BODY=rows=5&cols=30}
-		</div>
-		<div class="form-group mb-3"><label for="gdpr">{LAN=CONTACT_24}</label>
-			<div class="checkbox form-check">
-				<label>{CONTACT_GDPR_CHECK} {LAN=CONTACT_21}</label>
-				<div class="help-block">{CONTACT_GDPR_LINK}</div> 
-			</div>
-		</div>
-		{CONTACT_SUBMIT_BUTTON: class=btn btn-sm btn-small btn-primary button}
-	</div>       
- ';
  
-
 
 // Shortcode wrappers.
 $CONTACT_WRAPPER['form']['CONTACT_IMAGECODE'] 			= "<div class='control-group form-group'><label for='code-verify'>{CONTACT_IMAGECODE_LABEL}</label> {---}";
 $CONTACT_WRAPPER['form']['CONTACT_IMAGECODE_INPUT'] 	= "<span class='m-2'>{---}</span></div>";
 $CONTACT_WRAPPER['form']['CONTACT_EMAIL_COPY'] 			= "<div class='control-group form-group'>{---}{LAN=CONTACT_07}</div>";
-$CONTACT_WRAPPER['form']['CONTACT_PERSON']				= "<div class='control-group form-group'><label for='contactPerson'>{LAN=CONTACT_14}</label>{---}</div>";
-
-
-
+$CONTACT_WRAPPER['form']['CONTACT_PERSON']				= "<div class='control-group form-group'><label class='form-label' for='contactPerson'>{LAN=CONTACT_14}</label>{---}</div>";
+ 
 
 $CONTACT_TEMPLATE['form'] = "
-	<form action='".e_SELF."' method='post' id='contactForm' class='mt-5' >
+	<form action='".e_SELF. "' method='post' id='contactForm' class='mt-5' >
 	{CONTACT_PERSON}
-	<div class='control-group form-group mb-3'><label for='contactName'>{LAN=CONTACT_03}</label>
+	<div class='control-group form-group mb-2'><label class='form-label' for='contactName'>{LAN=CONTACT_03}</label>
 		{CONTACT_NAME}
 	</div>
-	<div class='control-group form-group mb-3'><label for='contactEmail'>{LAN=CONTACT_04}</label>
+	<div class='control-group form-group mb-2'><label class='form-label' for='contactEmail'>{LAN=CONTACT_04}</label>
 		{CONTACT_EMAIL}
 	</div>
-	<div class='control-group form-group mb-3'><label for='contactSubject'>{LAN=CONTACT_05}</label>
+	<div class='control-group form-group mb-2'><label class='form-label' for='contactSubject'>{LAN=CONTACT_05}</label>
 		{CONTACT_SUBJECT}
 	</div>
 
 		{CONTACT_EMAIL_COPY}
 
-	<div class='control-group form-group mb-3'><label for='contactBody'>{LAN=CONTACT_06}</label>
+	<div class='control-group form-group mb-2'><label class='form-label' for='contactBody'>{LAN=CONTACT_06}</label>
 		{CONTACT_BODY}
 	</div>
 
 	{CONTACT_IMAGECODE}
 	{CONTACT_IMAGECODE_INPUT}
 
-	<div class='form-group mb-3'><label for='gdpr'>{LAN=CONTACT_24}</label>
-		<div class='checkbox'>
-			<label>{CONTACT_GDPR_CHECK} {LAN=CONTACT_21}</label>
-			<div class='help-block'>{CONTACT_GDPR_LINK}</div> 
-		</div>
+	<div class='form-group mb-2'>
+ 		{CONTACT_GDPR_CHECK}
+		{CONTACT_GDPR_LINK}
 	</div>
 	
 	
 
-	<div class='form-group mb-3'>
+	<div class='form-group mb-2'>
 	{CONTACT_SUBMIT_BUTTON}
 	</div>
 	</form>";
-
-
-// Set the layout and  order of the info and form.
-$CONTACT_TEMPLATE['layout'] = '{---CONTACT-INFO---}
-							   {---CONTACT-FORM---} 
-							   ';
-
-
+ 
 
 	// Customize the email subject
 	// Variables:  CONTACT_SUBJECT and CONTACT_PERSON as well as any custom fields set in the form. )
 $CONTACT_TEMPLATE['email']['subject'] = "{CONTACT_SUBJECT}";
-
-
-
-
-

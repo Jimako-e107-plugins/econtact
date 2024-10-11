@@ -6,7 +6,7 @@
  * Released under the terms and conditions of the
  * GNU General Public License (http://www.gnu.org/licenses/gpl.txt)
  *
- * /contact.php
+ * /contact.php?action=report&url=viewstory.php?chapid=66
  *
 */
 
@@ -20,29 +20,29 @@ if (!e107::isInstalled('contact'))
 	e107::redirect();
 }
 
-define('e_PAGE_KEY', 'contact');  //route is too late?
+define('e_PAGE_KEY', 'report');  //route is too late?
 //e_CURRENT_PLUGIN - current plugin
 
 e107::getSingleton(e_CURRENT_PLUGIN, e_PLUGIN . 'contact/contact_class.php');
 e107::getSingleton(e_CURRENT_PLUGIN)->setRedirection(e_PAGE_KEY);
 e107::getSingleton(e_CURRENT_PLUGIN)->setContactLayouts(e_PAGE_KEY);
- 
+
 class ContactFront extends Contact
 {
 	public function __construct($pageType = 'contact')
 	{
 		// Call the parent constructor to ensure the base class is initialized
 		parent::__construct();
- 
+
 		// Additional initialization specific to ContactFront
-		
+
 		$this->frontInit();
 	}
 
 	protected function frontInit()
 	{
- 
-		if(isset($_POST['send-contactus']))
+
+		if (isset($_POST['send-contactus']))
 		{
 			$this->processFormSubmit();
 		}
@@ -54,16 +54,16 @@ class ContactFront extends Contact
 		$info = $this->renderContactInfo();
 
 		$LAYOUT = $this->getPageLayout(e_PAGE_KEY);
- 
+
 		$CONTACT_LAYOUT = str_replace(
 			['{---CONTACT-FORM---}', '{---CONTACT-INFO---}'],
 			[$form, $info],
 			$LAYOUT
 		);
- 
-	   // $text = e107::getParser()->parseTemplate($CONTACT_LAYOUT, true  );
- 
-	    e107::getRender()->tablerender("", $CONTACT_LAYOUT, "contact-page" );
+
+		// $text = e107::getParser()->parseTemplate($CONTACT_LAYOUT, true  );
+
+		e107::getRender()->tablerender("", $CONTACT_LAYOUT, "contact-page");
 	}
 
 	/**
@@ -86,20 +86,19 @@ class ContactFront extends Contact
 
 		$contact_filter = e107::pref('core', 'contact_filter', '');
 
-		if(!empty($contact_filter))
+		if (!empty($contact_filter))
 		{
 			$tmp = explode("\n", $contact_filter);
 
-			if(!empty($tmp))
+			if (!empty($tmp))
 			{
-				foreach($tmp as $filterItem)
+				foreach ($tmp as $filterItem)
 				{
-					if(strpos($_POST['body'], $filterItem) !== false)
+					if (strpos($_POST['body'], $filterItem) !== false)
 					{
 						$ignore = true;
 						break;
 					}
-
 				}
 			}
 		}
@@ -114,55 +113,55 @@ class ContactFront extends Contact
 		$email_copy = !empty($_POST['email_copy']) ? 1 : 0;
 
 		// Check Image-Code
-		if(isset($_POST['rand_num']) && ($sec_img->invalidCode($_POST['rand_num'], $_POST['code_verify'])))
+		if (isset($_POST['rand_num']) && ($sec_img->invalidCode($_POST['rand_num'], $_POST['code_verify'])))
 		{
 			$error .= LAN_CONTACT_15 . "\n";
 		}
 
 		// Check message body.
-		if(strlen(trim($body)) < 15)
+		if (strlen(trim($body)) < 15)
 		{
 			$error .= LAN_CONTACT_12 . "\n";
 		}
 
 		// Check subject line.
-		if(isset($_POST['subject']) && strlen(trim($subject)) < 2)
+		if (isset($_POST['subject']) && strlen(trim($subject)) < 2)
 		{
 			$error .= LAN_CONTACT_13 . "\n";
 		}
 
-		if(!strpos(trim($sender), "@"))
+		if (!strpos(trim($sender), "@"))
 		{
 			$error .= LAN_CONTACT_11 . "\n";
 		}
 
 		// No errors - so proceed to email the admin and the user (if selected).
-		if($ignore === true)
+		if ($ignore === true)
 		{
 			$ns->tablerender('', "<div class='alert alert-success'>" . LAN_CONTACT_09 . "</div>"); // ignore and leave them none the wiser.
 			e107::getDebug()->log("Contact form post ignored");
 			require_once(FOOTERF);
 			exit;
 		}
-		elseif(empty($error))
+		elseif (empty($error))
 		{
 			$body .= "<br /><br />
 				<table class='table'>
 				<tr>
 				<td>IP:</td><td>" . e107::getIPHandler()->getIP(true) . "</td></tr>";
 
-			if(USER)
+			if (USER)
 			{
 				$body .= "<tr><td>User:</td><td>#" . USERID . " " . USERNAME . "</td></tr>";
 			}
 
-			if(empty($_POST['contact_person']) && !empty($pref['sitecontacts'])) // only 1 person, so contact_person not posted.
+			if (empty($_POST['contact_person']) && !empty($pref['sitecontacts'])) // only 1 person, so contact_person not posted.
 			{
-				if($pref['sitecontacts'] == e_UC_MAINADMIN)
+				if ($pref['sitecontacts'] == e_UC_MAINADMIN)
 				{
 					$query = "user_perms = '0' OR user_perms = '0.' ";
 				}
-				elseif($pref['sitecontacts'] == e_UC_ADMIN)
+				elseif ($pref['sitecontacts'] == e_UC_ADMIN)
 				{
 					$query = "user_admin = 1 ";
 				}
@@ -176,7 +175,7 @@ class ContactFront extends Contact
 				$query = "user_id = " . intval($_POST['contact_person']);
 			}
 
-			if($sql->gen("SELECT user_name,user_email FROM `#user` WHERE " . $query . " LIMIT 1"))
+			if ($sql->gen("SELECT user_name,user_email FROM `#user` WHERE " . $query . " LIMIT 1"))
 			{
 				$row = $sql->fetch();
 				$send_to = $row['user_email'];
@@ -191,13 +190,13 @@ class ContactFront extends Contact
 
 			// ----------------------
 
-			$CONTACT_EMAIL = e107::getTemplate('contact','contact', 'email');
+			$CONTACT_EMAIL = e107::getTemplate('contact', 'contact', 'email');
 
 			unset($_POST['contact_person'], $_POST['author_name'], $_POST['email_send'], $_POST['subject'], $_POST['body'], $_POST['rand_num'], $_POST['code_verify'], $_POST['send-contactus']);
 
-			if(!empty($_POST)) // support for custom fields in contact template.
+			if (!empty($_POST)) // support for custom fields in contact template.
 			{
-				foreach($_POST as $k => $v)
+				foreach ($_POST as $k => $v)
 				{
 					$body .= "<tr><td>" . $k . ":</td><td>" . $tp->toEmail($v, true, 'RAWTEXT') . "</td></tr>";
 				}
@@ -205,13 +204,13 @@ class ContactFront extends Contact
 
 			$body .= "</table>";
 
-			if(!empty($CONTACT_EMAIL['subject']))
+			if (!empty($CONTACT_EMAIL['subject']))
 			{
 				$vars = array('CONTACT_SUBJECT' => $subject, 'CONTACT_PERSON' => $send_to_name);
 
-				if(!empty($_POST)) // support for custom fields in contact template.
+				if (!empty($_POST)) // support for custom fields in contact template.
 				{
-					foreach($_POST as $k => $v)
+					foreach ($_POST as $k => $v)
 					{
 						$scKey = strtoupper($k);
 						$vars[$scKey] = $tp->toEmail($v, true, 'RAWTEXT');
@@ -238,7 +237,7 @@ class ContactFront extends Contact
 
 			//	$message =  (sendemail($send_to,"[".SITENAME."] ".$subject, $body,$send_to_name,$sender,$sender_name)) ? LANCONTACT_09 : LANCONTACT_10;
 
-			if(isset($pref['contact_emailcopy']) && $pref['contact_emailcopy'] && $email_copy == 1)
+			if (isset($pref['contact_emailcopy']) && $pref['contact_emailcopy'] && $email_copy == 1)
 			{
 				require_once(e_HANDLER . "mail.php");
 				sendemail($sender, "[" . SITENAME . "] " . $subject, $body, ADMIN, $sender, $sender_name);
@@ -251,18 +250,15 @@ class ContactFront extends Contact
 		{
 			message_handler("P_ALERT", $error);
 		}
-
-
 	}
-
-  
+ 
 }
 
- 
+
 e107::lan('contact', 'lan_contact');  // Loads e_PLUGIN.'contact/languages/'.e_LANGUAGE.'/lan_contact.php'
 e107::title(LAN_CONTACT_00);
 e107::canonical('contact');
-e107::route('contact/index');  
+e107::route('contact/index');
 
 require_once(HEADERF);
 
