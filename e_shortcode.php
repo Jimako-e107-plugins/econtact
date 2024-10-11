@@ -20,6 +20,70 @@ if (!defined('e107_INIT'))
 
 class contact_shortcodes extends e_shortcode
 {
+    static $contactPrefs = array();
+
+    public function __construct() {
+
+        self::$contactPrefs =  e107::pref('contact');
+    }
+
+    /**
+     * Shortcode to display contact email with various formatting options.
+     *
+     * Parameters:
+     * - source (optional): Specifies which email to use. Default is "email1".
+     * - type (optional): Determines the format of the output. Options include:
+     *     - "text" (default): Displays the obfuscated email as plain text.
+     *     - "link": Displays the email as a clickable, obfuscated mailto link.
+     *     - "custom": Displays a custom-styled mailto link with optional CSS classes.
+     * - class (optional): CSS class to apply when using the "custom" type.
+     *
+     * Usage examples:
+     * - {CONTACT_EMAIL: type=text}
+     * - {CONTACT_EMAIL: source=email2&type=link}
+     * - {CONTACT_EMAIL: type=custom&class=btn btn-primary}
+     *
+     * @param array|null $parm Parameters for the shortcode.
+     * @return string Obfuscated email address based on the provided parameters.
+     */
+
+
+    public function sc_contact_email($parm = null)
+    {
+        $tp = e107::getParser();
+
+        // Set default values for parameters
+        $source = $parm['source'] ?? "email1";
+        $type   = $parm['type'] ?? "text";
+        $class  = isset($parm['class']) ? "class='" . e107::getParser()->toAttribute($parm['class']) . "'" : "";
+
+        // Get email from preferences
+        $email = self::$contactPrefs["contact_{$source}"] ?? null;
+
+        // Return empty if email is not set
+        if (empty($email))
+        {
+            return '';
+        }
+
+        // Generate the output based on the 'type' parameter
+        switch ($type)
+        {
+            case "link":
+                return $tp->emailObfuscate($email);
+
+            case "custom":
+                $obfuscatedEmail = $tp->obfuscate($email);
+                return "<a {$class} href='mailto:{$email}'>{$obfuscatedEmail}</a>";
+
+            case "text":
+            default:
+                return $tp->obfuscate($email);
+        }
+    }
+
+
+
     /**
      * Shortcode to display contact information based on the type passed in $parm.
      * @param array|null $parm Parameters that specify which type of contact info to display.
