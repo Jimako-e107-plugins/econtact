@@ -245,7 +245,7 @@ class plugin_contact_form_shortcodes extends e_shortcode
 	function sc_report_subject($parm = null)
 	{
 
-		$options = [LAN_RULESVIOLATION, LAN_BUGREPORT, LAN_MISSING];
+		$options = [LAN_RULESVIOLATION =>LAN_RULESVIOLATION, LAN_BUGREPORT=> LAN_BUGREPORT, LAN_MISSING=>LAN_MISSING];
 
 		return e107::getForm()->select('subject', $options, false, array('class' => 'form-select form-control'));
 	}
