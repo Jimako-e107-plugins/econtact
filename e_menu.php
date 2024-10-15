@@ -41,7 +41,7 @@ class contact_menu
 		$templates = e107::getLayouts('contact', 'contact_menu', 'front', null, true, false);
 
 		// Set a default caption if LAN_CONTACT_00 is defined
-		$default_caption = defset('LAN_CONTACT_00', 'Contact Us');
+		$default_caption = defset('LAN_CONTACT_PAGE_TITLE', 'Contact Us');
 
 		// Switch case to handle different menu types
 		switch ($menu)

@@ -2,20 +2,19 @@
 /*
  * e107 website system
  *
- * Copyright (C) 2008-2016 e107 Inc (e107.org)
+ * Copyright (C) 2008-2025 e107 Inc (e107.org)
  * Released under the terms and conditions of the
  * GNU General Public License (http://www.gnu.org/licenses/gpl.txt)
  *
- * Contact language file
- *
- * $Source: /cvs_backup/e107_0.8/e107_languages/English/lan_contact.php,v $
- * $Revision$
- * $Date$
- * $Author$
+ * #######################################
+ * #     e107 contact plugin    		 #
+ * #     by Jimako                       #
+ * #     https://www.e107sk.com          #
+ * #######################################
  */
 
 
-define("LAN_CONTACT_00", "Contact Us");
+define("LAN_CONTACT_PAGE_TITLE", "Contact Us");
 define("LAN_CONTACT_01", "Contact Details");
 define("LAN_CONTACT_02", "Contact Form");
 define("LAN_CONTACT_03", "Enter your name");
@@ -42,7 +41,7 @@ define("LAN_CONTACT_22", "Privacy policy");
 define("LAN_CONTACT_23", "You can find our privacy policy here: [x]");
 define("LAN_CONTACT_24", "GDPR Agreement");
 
-define("LAN_REPORT", "Report");
+define("LAN_REPORT_PAGE_TITLE", "Report");
 define("LAN_MISSING", "Missing Information");
 define("LAN_RULESVIOLATION", "Violation of Rules");
 define("LAN_BUGREPORT", "Bug Report");
