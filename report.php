@@ -20,7 +20,7 @@ if (!defined('e107_INIT'))
 	require_once(__DIR__ . '/../../class2.php');
 }
 
-define('PLUGIN_NAME', 'contact');
+define('PLUGIN_NAME', 'econtact');
 
 if (!e107::isInstalled(PLUGIN_NAME))
 {
@@ -28,7 +28,7 @@ if (!e107::isInstalled(PLUGIN_NAME))
 }
 
 define('e_PAGE_KEY', 'report');  //route is too late?
-$contactSingleton =  e107::getSingleton(e_CURRENT_PLUGIN, e_PLUGIN . 'contact/contact_class.php');
+$contactSingleton =  e107::getSingleton(e_CURRENT_PLUGIN, e_PLUGIN . PLUGIN_NAME .'/contact_class.php');
 $contactSingleton->setRedirection(e_PAGE_KEY);
 $contactSingleton->setContactLayouts(e_PAGE_KEY);
 
@@ -190,7 +190,7 @@ function processFormSubmit()
 
 		// ----------------------
 
-		$CONTACT_EMAIL = e107::getTemplate('contact', 'contact', 'email');
+		$CONTACT_EMAIL = e107::getTemplate('econtact', 'contact', 'email');
 
 		unset($_POST['contact_person'], $_POST['author_name'], $_POST['email_send'], $_POST['subject'], $_POST['body'], $_POST['rand_num'], $_POST['code_verify'], $_POST['send-contactus']);
 

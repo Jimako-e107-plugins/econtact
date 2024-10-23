@@ -18,13 +18,13 @@ if (!defined('e107_INIT'))
     exit;
 }
 
-class contact_shortcodes extends e_shortcode
+class econtact_shortcodes extends e_shortcode
 {
     static $contactPrefs = array();
 
     public function __construct() {
 
-        self::$contactPrefs =  e107::pref('contact');
+        self::$contactPrefs =  e107::pref('econtact');
     }
 
     /**

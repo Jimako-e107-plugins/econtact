@@ -18,10 +18,10 @@ if (!defined('e107_INIT'))
 	exit;
 }
 
-// Load language file for the contact plugin
-// e107::lan('contact', 'lan_contact');
+// Load language file for the contact plugine
+// e107::lan('econtact', 'lan_contact');
 
-class plugin_contact_form_shortcodes extends e_shortcode
+class plugin_econtact_form_shortcodes extends e_shortcode
 {
 
 	function sc_contact_email_copy($parm = '')

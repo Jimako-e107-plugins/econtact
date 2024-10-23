@@ -20,7 +20,7 @@ if (!defined('e107_INIT'))
 
 // v2.x Standard - Simple mod-rewrite module
 
-class contact_url // plugin-folder + '_url'
+class econtact_url // plugin-folder + '_url'
 {
 	/**
 	 * URL configuration for the contact plugin
@@ -34,7 +34,7 @@ class contact_url // plugin-folder + '_url'
 				'alias'     => 'report/', // URL alias
 				'regex'     => '^{alias}\/?([\?].*)?\/?$',  // Regex for URL matching
 				'sef'       => '{alias}', // SEF (Search Engine Friendly) URL
-				'redirect'  => '{e_PLUGIN}contact/report.php$1', // Redirection target
+				'redirect'  => '{e_PLUGIN}econtact/report.php$1', // Redirection target
 			];
 
 		// URL configuration for the 'index' route
@@ -42,7 +42,7 @@ class contact_url // plugin-folder + '_url'
 				'alias'     => 'contact/', // URL alias
 				'regex'     => '^{alias}/?$', // Regex for URL matching
 				'sef'       => '{alias}', // SEF (Search Engine Friendly) URL
-				'redirect'  => '{e_PLUGIN}contact/contact.php', // Redirection target
+				'redirect'  => '{e_PLUGIN}econtact/contact.php', // Redirection target
 		]; 
 
 		return $config;

@@ -18,17 +18,17 @@ if (!defined('e107_INIT'))
 	exit;
 }
 
-class contact_menu
+class econtact_menu
 {
 	public function __construct()
 	{
 		// Load the language file for the contact plugin
-		e107::lan('contact', 'lan_contact');
+		e107::lan('econtact', 'lan_contact');
 	}
 
 	/**
 	 * Returns the configuration fields for the menu.
-	 * @param string $menu Menu name (e.g., 'contact')
+	 * @param string $menu Menu name (e.g., 'econtact')
 	 * @return array Configuration fields for the selected menu
 	 */
 	public function config($menu = '')
@@ -38,7 +38,7 @@ class contact_menu
 		$fields = [];
 
 		// Fetch available templates for the contact menu
-		$templates = e107::getLayouts('contact', 'contact_menu', 'front', null, true, false);
+		$templates = e107::getLayouts('econtact', 'contact_menu', 'front', null, true, false);
 
 		// Set a default caption if LAN_CONTACT_00 is defined
 		$default_caption = defset('LAN_CONTACT_PAGE_TITLE', 'Contact Us');
@@ -47,7 +47,7 @@ class contact_menu
 		switch ($menu)
 		{
 			case 'contact':
-				// Define the configuration fields for the 'contact' menu
+				// Define the configuration fields for the 'econtact' menu
 				$fields['caption'] = [
 					'title'      => LAN_CAPTION,
 					'type'       => 'text',

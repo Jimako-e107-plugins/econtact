@@ -20,7 +20,7 @@ if (!defined('e107_INIT'))
 }
 
 // Load language file for the contact plugin
-e107::lan('contact', 'lan_contact');
+e107::lan('econtact', 'lan_contact');
 
 // Load parameters from Menu Manager
 
@@ -32,14 +32,14 @@ $subtitle = $parm['subtitle'][e_LANGUAGE] ?? $parm['subtitle'] ?? null;
 $template_key = $parm['template'] ?? 'default';
 
 // Prepare contact form URL and form elements
-$contact_url = e107::url('contact', 'index');
+$contact_url = e107::url('econtact', 'index');
 $form = e107::getForm();
 $head = $form->open('contact-menu', 'POST', $contact_url);
 $foot = $form->close();
 
 // Get the appropriate template and shortcodes
-$template = e107::getTemplate('contact', 'contact_menu', $template_key);
-$contact_shortcodes = e107::getScBatch('form', 'contact', false);
+$template = e107::getTemplate('econtact', 'contact_menu', $template_key);
+$contact_shortcodes = e107::getScBatch('form', 'econtact', false);
 $contact_shortcodes->wrapper('contact_menu/menu');
 
 // Parse the template

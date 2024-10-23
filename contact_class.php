@@ -15,7 +15,7 @@
  */
 
 
-class Contact
+class econtact
 {
 
 
@@ -43,7 +43,7 @@ class Contact
 	 */
 	public function setProperties()
 	{
-		$contactPrefs =  e107::pref('contact');
+		$contactPrefs =  e107::pref('econtact');
 
 		if (empty($contactPrefs))
 		{
@@ -51,7 +51,7 @@ class Contact
 			$user = e107::getUser();
 
 			// Kontrola, či je používateľ prihlásený ako hlavný administrátor alebo admin pluginu
-			if ($user->isAdmin() || $user->checkAdminPerms('contact'))
+			if ($user->isAdmin() || $user->checkAdminPerms('econtact'))
 			{
 
 				// Zobrazenie chybovej správy, ak ide o hlavného admina alebo plugin admina
@@ -83,12 +83,14 @@ class Contact
 	{
 		// Check if the specified page layout exists and is greater than zero
 		$layoutId = self::$contactPrefs['contact_pages']['themelayout'][$page] ?? null;
-
-		if ($layoutId > 0)
+ 
+		if (!empty($layoutId))
 		{
 			// Define the layout constant if a valid layout ID is found
 			define('THEME_LAYOUT', $layoutId);
 		}
+		var_dump(THEME_LAYOUT);
+
 	}
 
 	public function setRedirection($page = "contact")
@@ -125,8 +127,8 @@ class Contact
 		}
 		else
 		{
-			$CONTACT_FORM = e107::getTemplate('contact', $page, 'form');
-			$contact_shortcodes = e107::getScBatch('form', 'contact', false);
+			$CONTACT_FORM = e107::getTemplate('econtact', $page, 'form');
+			$contact_shortcodes = e107::getScBatch('form', 'econtact', false);
 			$contact_shortcodes->wrapper($page . '/form');
 
 			$text = e107::getParser()->parseTemplate($CONTACT_FORM, true, $contact_shortcodes);
@@ -160,8 +162,8 @@ class Contact
 		}
 		else
 		{
-			$CONTACT_INFO = e107::getTemplate('contact', 'contact', 'info');
-			$contact_shortcodes = e107::getScBatch('form', 'contact', false);
+			$CONTACT_INFO = e107::getTemplate('econtact', 'contact', 'info');
+			$contact_shortcodes = e107::getScBatch('form', 'econtact', false);
 			$contact_shortcodes->wrapper('contact/info');
 
 			$text = e107::getParser()->parseTemplate($CONTACT_INFO, true, $contact_shortcodes);
@@ -187,7 +189,7 @@ class Contact
 		$LAYOUT = '{---CONTACT-INFO---} {---CONTACT-FORM---}  ';
 		$layout_key = self::$contactPrefs['contact_pages']['contactlayout'][$page];
 
-		$LAYOUT = e107::getTemplate('contact', 'contact_layout', $layout_key);
+		$LAYOUT = e107::getTemplate('econtact', 'contact_layout', $layout_key);
 
 		return $LAYOUT;
 	}

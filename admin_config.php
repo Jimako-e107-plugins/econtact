@@ -58,7 +58,7 @@ class contact_ui extends e_admin_ui
 {
 	// Plugin configurations
 	protected $pluginTitle = 'Contact';
-	protected $pluginName = 'contact';
+	protected $pluginName = 'econtact';
 	protected $table = ''; // No table defined
 	protected $pid = '';
 	protected $perPage = 10;
@@ -86,7 +86,7 @@ class contact_ui extends e_admin_ui
 		e107::getMessage()->reset();
 
 		// Retrieve the updated preferences from the plugin
-		$contactPrefs = e107::pref('contact');
+		$contactPrefs = e107::pref('econtact');
 
 		// Get new email values from plugin preferences
 		$newEmail1 = $contactPrefs['contact_email1'] ?? '';
@@ -135,7 +135,7 @@ class pages_ui extends e_admin_ui
 {
 	// Plugin configurations
 	protected $pluginTitle = 'Contact';
-	protected $pluginName = 'contact';
+	protected $pluginName = 'econtact';
 	protected $table = ''; // No table defined
 	protected $pid = '';
 	protected $perPage = 10;
@@ -173,7 +173,7 @@ class pages_ui extends e_admin_ui
 		e107::getMessage()->reset();
 
 		// Retrieve the updated preferences from the plugin
-		$contactPrefs = e107::pref('contact', 'contact_pages');
+		$contactPrefs = e107::pref('econtact', 'contact_pages');
 		$contactPagesPrefs = e107::unserialize($contactPrefs);
  
 		// Get new email values from plugin preferences
@@ -325,7 +325,7 @@ class pages_form_ui extends e_admin_form_ui
 
 	public static function contactLayouts()
 	{
-		$templates = e107::getLayouts('contact', 'contact_layout', 'front', null, true, false);
+		$templates = e107::getLayouts('econtact', 'contact_layout', 'front', null, true, false);
  
 		return $templates;
 	}
